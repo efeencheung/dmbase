@@ -42,3 +42,4 @@ php app/console doctrine:fixtures:load
 ```sh
 php app/console cache:clear
 ```
+安装过程只在Mac下进行了测试，估计Linux下也没什么问题，有问题欢迎抛砖，Windows由于最近很少用了，有时间再写对应的安装过程
