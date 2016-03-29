@@ -21,19 +21,16 @@ class AddSecurityPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        // 读取数据库链接
-        $dbalConfig = new \Doctrine\DBAL\Configuration();
-        $connectionParams = array(
-            'dbname' => $container->getParameter('database_name'),
-            'user' => $container->getParameter('database_user'),
-            'password' => $container->getParameter('database_password'),
-            'host' => $container->getParameter('database_host'),
-            'driver' => 'pdo_mysql',
-        );  
+        /* 获取数据库链接*/
+        $dbname = $container->getParameter('database_name');
+        $dbhost = $container->getParameter('database_host');
+        $dsn = 'mysql:dbname='.$dbname.';host='.$dbhost;
+        $dbuser = $container->getParameter('database_user');
+        $dbpassword = $container->getParameter('database_password');
         try {
-            $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $dbalConfig);
-        } catch (\Doctrine\DBAL\Exception\ConnectionException $e) {
-            return;
+            $conn = new \PDO($dsn, $dbuser, $dbpassword);
+        } catch (\PDOException $e) {
+            return; 
         }
 
         /* 在编译中加入从数据库中读取的访问控制规则 */
@@ -42,7 +39,8 @@ class AddSecurityPass implements CompilerPassInterface
         foreach ($accessControls as $access) {
             // 获取授权的ROLE
             $sql = 'SELECT r.role FROM roles_accesscontrols AS ra LEFT JOIN role AS r ON ra.role_id = r.id WHERE ra.access_control_id=?';
-            $stmt = $conn->executeQuery($sql, array($access['id']));
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(array($access['id']));
             $roles = $stmt->fetchAll(\PDO::FETCH_COLUMN);
 
             if ($access['methods']) {
@@ -64,11 +62,12 @@ class AddSecurityPass implements CompilerPassInterface
 
         /* 在编译中加入从数据库获取的角色继承数据 */
         $sql = 'SELECT * FROM role WHERE lvl>0';
-        $roles = $conn->fetchAll($sql);
+        $roles = $conn->query($sql)->fetchAll();
         $hierarchy = array();
         foreach ($roles as $role) {
             $sql = 'SELECT role FROM role WHERE lft<? AND rgt>?';
-            $stmt = $conn->executeQuery($sql, array($role['lft'], $role['rgt']));
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(array($role['lft'], $role['rgt']));
 
             $hierarchy[$role['role']] = $stmt->fetchAll(\PDO::FETCH_COLUMN);
         }
