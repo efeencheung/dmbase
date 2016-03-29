@@ -1,72 +1,44 @@
-Symfony Standard Edition
+DM 项目初始化系统
 ========================
+该系统主要是给初学者能快速开始一个稍微漂亮的Symfony项目，代码未经严格测试，谨慎使用在生产环境。由于为了清晰易懂，代码还是有一定的耦合度，日后逐渐优化。 
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+主要包含4个Bundle：
+--------------
+ * DmThemeBundle 提供一些后台模板，公用的Js库，公用样式，以及一些显示层的扩展。
+ * DmSecurityBundle 主要是把Symfony的Access Control扩展，变成了一个可以从数据库读取配置的方式。
+ * DmUserBundle 一个简单的用户管理模块，配合权限系统使用，可在此扩展。
+ * DmGenerateBundle 从SensioGenerateBundle复制过来的，添加了中文的交互，一些中文参数，以及一些适应本系统的CRUD模板。
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
-
-What's inside?
+安装和配置：
 --------------
 
-The Symfony Standard Edition is configured with the following defaults:
+一. 安装 [Composer](https://getcomposer.org/doc/00-intro.md)
 
-  * An AppBundle you can use to start coding;
+二. 下载代码 git clone git@github.com:efeencheung/dmbase.git
 
-  * Twig as the only configured template engine;
+三. 安装依赖包，如果在安装过程中没有正确的配置数据库信息，需手动编辑app/config/parameters.yml
 
-  * Doctrine ORM/DBAL;
+```sh
+cd dmbase
+composer install
+```
+四. 导出前端公共文件
 
-  * Swiftmailer;
+```sh
+php app/console assets:install --symlink
+```
 
-  * Annotations enabled for everything.
+五. 初始化数据库，数据初始化了三个用户，可使用normaluser/normaluser，admin/admin，superadmin/superadmin登录
+```sh
+php app/console doctrine:database:create
+php app/console doctrine:schema:create
+php app/console doctrine:fixtures:load
+```
 
-It comes pre-configured with the following bundles:
+六. 配置服务器，开发环境，虚拟主机之类
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+七. 然后清空一下缓存，接下来就可以访问了
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
-
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
-
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing
-    library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/2.7/book/installation.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/2.7/book/doctrine.html
-[8]:  https://symfony.com/doc/2.7/book/templating.html
-[9]:  https://symfony.com/doc/2.7/book/security.html
-[10]: https://symfony.com/doc/2.7/cookbook/email.html
-[11]: https://symfony.com/doc/2.7/cookbook/logging/monolog.html
-[12]: https://symfony.com/doc/2.7/cookbook/assetic/asset_management.html
-[13]: https://symfony.com/doc/2.7/bundles/SensioGeneratorBundle/index.html
+```sh
+php app/console cache:clear
+```
