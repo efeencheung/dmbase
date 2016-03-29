@@ -35,7 +35,11 @@ class AddSecurityPass implements CompilerPassInterface
 
         /* 在编译中加入从数据库中读取的访问控制规则 */
         $sql = 'SELECT * FROM access_control';
-        $accessControls = $conn->query($sql)->fetchAll();
+        if ($stmt = $conn->query($sql)) {
+            $accessControls =$stmt->fetchAll();
+        } else {
+            return;
+        }
         foreach ($accessControls as $access) {
             // 获取授权的ROLE
             $sql = 'SELECT r.role FROM roles_accesscontrols AS ra LEFT JOIN role AS r ON ra.role_id = r.id WHERE ra.access_control_id=?';
@@ -62,7 +66,11 @@ class AddSecurityPass implements CompilerPassInterface
 
         /* 在编译中加入从数据库获取的角色继承数据 */
         $sql = 'SELECT * FROM role WHERE lvl>0';
-        $roles = $conn->query($sql)->fetchAll();
+        if ($stmt = $conn->query($sql)) {
+            $roles =$stmt->fetchAll();
+        } else {
+            return;
+        }
         $hierarchy = array();
         foreach ($roles as $role) {
             $sql = 'SELECT role FROM role WHERE lft<? AND rgt>?';
