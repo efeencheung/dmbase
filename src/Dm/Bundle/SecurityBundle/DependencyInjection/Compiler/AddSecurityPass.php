@@ -30,7 +30,11 @@ class AddSecurityPass implements CompilerPassInterface
             'host' => $container->getParameter('database_host'),
             'driver' => 'pdo_mysql',
         );  
-        $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $dbalConfig);
+        try {
+            $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $dbalConfig);
+        } catch (\Doctrine\DBAL\Exception\ConnectionException $e) {
+            return;
+        }
 
         /* 在编译中加入从数据库中读取的访问控制规则 */
         $sql = 'SELECT * FROM access_control';
