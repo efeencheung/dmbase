@@ -1,0 +1,87 @@
+<?php
+
+namespace Dm\Bundle\SecurityBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * UserGroup
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class UserGroup
+{
+    /**
+     * ID
+     *
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * 用户组名称
+     *
+     * @var string
+     *
+     * @ORM\Column(name="groupname", type="string", length=255)
+     */
+    private $groupname;
+
+    /**
+     * 用户组权限
+     *
+     * @var Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\JoinTable(name="UserGroupRoles",
+     *      joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     *      )
+     *
+     * @api
+     */
+    private $roles;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set groupname
+     *
+     * @param string $groupname
+     * @return UserGroup
+     */
+    public function setGroupname($groupname)
+    {
+        $this->groupname = $groupname;
+
+        return $this;
+    }
+
+    /**
+     * Get groupname
+     *
+     * @return string 
+     */
+    public function getGroupname()
+    {
+        return $this->groupname;
+    }
+
+    public function __toString()
+    {
+        return $this->getGroupname();
+    }
+}

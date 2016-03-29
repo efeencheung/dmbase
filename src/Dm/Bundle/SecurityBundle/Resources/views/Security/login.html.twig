@@ -1,0 +1,54 @@
+{% extends 'DmThemeBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+<link href="/bundles/dmsecurity/css/login.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body -%}
+    <body class=" login">
+        <!-- BEGIN LOGO -->
+        <div class="logo">
+            <span class="text-logo">电马科技中心</span>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN LOGIN -->
+        <div class="content">
+            <!-- BEGIN LOGIN FORM -->
+            <form class="login-form" action="{{ path('login_check') }}" method="post">
+                <div class="form-title">
+                    <span class="form-title">欢迎！请登录后操作</span>
+                </div>
+                {% if error is defined and error  %}
+                <div class="alert alert-danger">
+                    <button class="close" data-close="alert"></button>
+                    <span> {{ error }} </span>
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <label class="control-label visible-ie8 visible-ie9">用户名</label>
+                    <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" name="_username" /> </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="_password" /> </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn red btn-block uppercase">登录</button>
+                </div>
+                <div class="form-actions">
+                    <div class="pull-left">
+                        <label class="rememberme check">
+                            <input type="checkbox" name="_remember_me" />下次自动登录 
+                        </label>
+                    </div>
+                    <div class="pull-right forget-password-block">
+                        <a href="javascript:;" id="forget-password" class="forget-password">忘记密码</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="copyright hide"> 2013-2016 © 北京电马网络科技中心. </div>
+        {% block global_scripts -%}
+        {{ parent() }}
+        {% endblock %}
+    </body>
+{% endblock %}

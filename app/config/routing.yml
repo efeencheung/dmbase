@@ -1,0 +1,18 @@
+dm_security:
+    resource: "@DmSecurityBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+dm_user:
+    resource: "@DmUserBundle/Controller"
+    type:     annotation
+
+dm_theme:
+    resource: "@DmThemeBundle/Controller"
+    type:     annotation
+
+login_check:
+    path: /admin/login_check
+
+logout:
+    path: /admin/logout

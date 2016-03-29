@@ -1,0 +1,39 @@
+security:
+    encoders:
+        Dm\Bundle\UserBundle\Entity\User:
+            algorithm: bcrypt  
+
+#role_hierarchy:
+#        ROLE_SUPER_ADMIN:       ROLE_USER
+
+    providers:
+        administrators:            
+            entity: { class: DmUserBundle:User, property: username } 
+
+    access_decision_manager:
+        strategy: unanimous
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/login$
+            security: false
+
+        admin:
+            pattern:  ^/admin/
+            access_denied_url: /denied
+            form_login:
+                check_path: login_check
+                login_path: login
+            
+            logout: 
+                path: logout
+                target: login
+            remember_me:
+                key:      "%secret%"
+                lifetime: 604800
+                path:     /   
+                domain:   ~

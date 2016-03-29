@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+    <!-- BEGIN 头部 -->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}电马管理控制系统{% endblock %}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN 全局必备样式 -->
+        <link href="http://fonts.useso.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="/bundles/dmtheme/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="/bundles/dmtheme/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="/bundles/dmtheme/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/bundles/dmtheme/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+        <link href="/bundles/dmtheme/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        <link href="/bundles/dmtheme/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="/bundles/dmtheme/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <!-- END 全局必备样式 -->
+        <!-- BEGIN 组件插件样式 -->
+        <link href="/bundles/dmtheme/metronic/css/components.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="/bundles/dmtheme/metronic/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <!-- END 组件插件样式 -->
+        <!-- BEGIN 皮肤布局样式 -->
+        <link href="/bundles/dmtheme/metronic/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="/bundles/dmtheme/metronic/css/light.min.css" rel="stylesheet" type="text/css" />
+        <!-- END 皮肤布局样式 -->
+        <!-- BEGIN 自定义样式 -->
+        <link href="/bundles/dmtheme/metronic/css/custom.css" rel="stylesheet" type="text/css" />
+        <!-- END 自定义样式 -->
+        {% block stylesheets %}
+        {% endblock %}
+    </head>
+    <!-- END HEAD -->
+    {% block body %}
+    <body class="page-header-fixed page-sidebar-closed-hide-logo">
+        {% block head %}
+        <div class="page-header navbar navbar-fixed-top">
+            <div class="page-header-inner ">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="{{ path('dashboard') }}" class="text-logo font-red"><span class="logo-default">电马科技中心</span></a>
+                    <div class="menu-toggler sidebar-toggler"> </div>
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN 顶部导航 -->
+                <div class="top-menu">
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown dropdown-user">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <img alt="" class="img-circle" src="/bundles/dmtheme/metronic/img/avatar.png" />
+                                <span class="username username-hide-on-mobile">
+                                    {%- if app.user.username is defined -%}
+                                    {{- app.user.username -}}
+                                    {%- endif -%}
+                                </span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-quick-sidebar-toggler">
+                            <a href="{{ path('logout') }}" class="dropdown-toggle">
+                                <i class="icon-logout"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END 顶部导航 -->
+            </div>
+        </div>
+        {% endblock %}
+
+        <div class="clearfix"> </div>
+
+        {% block wrapper %}
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN 边栏 -->
+            <div class="page-sidebar-wrapper">
+                <div class="page-sidebar navbar-collapse collapse">
+                    <!-- BEGIN 边栏菜单 -->
+                    {{ knp_menu_render('DmThemeBundle:SidebarBuilder:build', {'firstClass':'start', 'currentClass':'active', 'ancestorClass':'active open'}) }} 
+                    <!-- <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                        <li class="nav-item start ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-home"></i>
+                                <span class="title">控制台</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item start ">
+                                    <a href="index.html" class="nav-link ">
+                                        <i class="icon-bar-chart"></i>
+                                        <span class="title">Dashboard 1</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>-->
+                    <!-- END 边栏菜单 -->
+                </div>
+            </div>
+            <!-- END 边栏 -->
+            <!-- BEGIN 内容 -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    {% block breabcrumb %}
+                    <!-- BEGIN 面包屑导航 -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                            <i class="fa fa-dashboard"></i> <span>控制台</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END 面包屑导航 -->
+                    {% endblock %}
+
+                    <!-- BEGIN 提示消息 -->
+                    {% for type, messages in app.session.flashBag %}
+                        {% if type == 'success' %}
+                            {% set msgIcon = 'check' %}
+                        {% else %}
+                            {% set msgIcon = 'warning' %}
+                        {% endif %}
+                        {% for message in messages %}
+                            <div class="custom-alerts alert alert-{{ type }} fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <i class="fa-lg fa fa-{{ msgIcon }}"></i>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    <!-- END 提示消息 -->
+
+                    {% block content_wrapper %}
+                    {% endblock %}
+                    </h3>
+                </div>
+            </div>
+            <!-- END 内容 -->
+        </div>
+        <!-- END CONTAINER -->
+        {% endblock %}
+        <!-- BEGIN 底部 -->
+        <div class="page-footer">
+            <div class="page-footer-inner"> 2013 - 2016 &copy; 电马科技
+            </div>
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+        <!-- END 底部 -->
+        {% block global_scripts -%}
+        <!--[if lt IE 9]>
+        <script src="/bundles/dmtheme/metronic/js/respond.min.js"></script>
+        <script src="/bundles/dmtheme/metronic/js/excanvas.min.js"></script> 
+        <![endif]-->
+        <!-- BEGIN 全局脚本 -->
+        <script src="/bundles/dmtheme/jquery/js/jquery.min.js" type="text/javascript"></script>
+        <script src="/bundles/dmtheme/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/bundles/dmtheme/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+        <script src="/bundles/dmtheme/bootstrap-datetimepicker/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+        <script src="/bundles/dmtheme/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
+        <script src="/bundles/dmtheme/bootstrap-select/js/i18n/defaults-zh_CN.min.js" type="text/javascript"></script>
+        <script src="/bundles/dmtheme/uniform/jquery.uniform.js" type="text/javascript"></script>
+        <script src="/bundles/dmtheme/parsley/js/parsley.js" type="text/javascript"></script>
+        <script src="/bundles/dmtheme/confirmation/js/confirmation.js" type="text/javascript"></script>
+        <script src="/bundles/dmtheme/metronic/js/app.js" type="text/javascript"></script>
+        <script src="/bundles/dmtheme/metronic/js/plugin.js" type="text/javascript"></script>
+        <!-- END 全局脚本 -->
+        <!-- BEGIN 布局脚本-->
+        <script src="/bundles/dmtheme/metronic/js/layout.min.js" type="text/javascript"></script>
+        <!-- END 布局脚本 -->
+        {% endblock %}
+        {% block scripts %}{% endblock %}
+    </body>
+    {% endblock %}
+</html>

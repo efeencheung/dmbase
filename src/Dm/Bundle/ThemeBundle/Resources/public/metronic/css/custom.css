@@ -1,0 +1,21 @@
+/* 自定义CSS */
+.page-header.navbar .page-logo .text-logo {
+    padding-left: 0;
+    font-weight: 900;
+    font-size: 17px;
+    font-family: "microsoft yahei";
+}
+
+.control-label .required,.form-group .required {
+    font-size: 14px;
+}
+
+.pagination .active>span, .pagination .active>span:hover {
+    background: #eee;
+    border-color: #ddd;
+    color: #333;
+}
+
+.page-sidebar .page-sidebar-menu {
+    padding-top: 20px;
+}

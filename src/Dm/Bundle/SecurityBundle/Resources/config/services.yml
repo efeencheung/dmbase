@@ -1,0 +1,6 @@
+services:
+    dm_security.configure_menu_listener:
+        class: Dm\Bundle\SecurityBundle\EventListener\ConfigureMenuListener
+        arguments: ["@security.authorization_checker"]
+        tags:
+          - { name: kernel.event_listener, event: dm_theme.menu_configure, method: onMenuConfigure }

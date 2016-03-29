@@ -1,0 +1,4 @@
+<form id="delete_form_hidden_{{ did }}" class="delete_form_hidden" name="{{ form.vars.name }}" method="POST" action="{{ form.vars.action }}">
+    <input type="hidden" name="_method" value="DELETE" />
+    {{ form_widget(form._token) }}
+</form>

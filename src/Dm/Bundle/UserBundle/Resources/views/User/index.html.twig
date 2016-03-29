@@ -1,0 +1,74 @@
+{% extends 'DmThemeBundle::layout.html.twig' %}
+
+{% block breabcrumb %}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+        <i class="fa fa-dashboard"></i> <a href="{{ path('dashboard')}}">控制台</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+        <span>用户管理</span>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content_wrapper -%}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-layers font-green"></i>
+                    <span class="caption-subject font-green sbold uppercase">用户列表</span>
+                </div>
+                <div class="actions">
+                    <a href="{{ path('user_new') }}" class="btn btn-sm green"><i class="fa fa-plus"></i> 添加新用户</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>用户角色</th>
+                                <th>显示名称</th>
+                                <th>创建时间</th>
+                                <th>更新时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in pagination %}
+                            <tr>
+                                <td>{{ entity.id }}</td>
+                                <td>{{ entity.username }}</td>
+                                <td>
+                                    {%- if entity.role is defined and entity.role -%}
+                                    {{- entity.role.name -}}
+                                    {%- endif -%}
+                                </td>
+                                <td>{{ entity.showname }}</td>                                    
+                                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>                                    
+                                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>                            
+                                <td>
+                                    <a title="查看" href="{{ path('user_show', { 'id': entity.id }) }}"><i class="fa fa-search"></i> </a>
+                                    <a title="编辑" href="{{ path('user_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> </a>
+                                    <a title="删除" href="{{ path('user_show', { 'id': entity.id }) }}"><i class="fa fa-trash-o"></i> </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+Dm\Bundle\UserBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [username]
+            message: '用户名已存在'
+            groups: [create]
+    properties:
+        username:
+            - NotBlank:
+                message: '该选项是必填项,不能为空'
+                groups: [create]
+            - Regex:
+                pattern: "/^[0-9a-z]{4,18}$/"
+                message: '输入格式不正确'
+                groups: [create]
+        password:
+            - NotBlank:
+                message: '该选项是必填项,不能为空'
+                groups: [create]
+            - Length:
+                min: 4
+                max: 18
+                minMessage: '输入格式有误'
+                maxMessage: '输入格式有误'
+                groups: [create, edit]
+        showname:
+            - NotBlank:
+                message: '该选项是必填项,不能为空'
+                groups: [create, edit]
+
+

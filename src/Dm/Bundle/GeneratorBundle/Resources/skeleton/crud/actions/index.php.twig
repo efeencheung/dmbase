@@ -1,0 +1,43 @@
+
+    /**
+{% block phpdoc_method_header %}
+     * 显示所有{{ entity_chinese_name }}.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+     * @Route("/", name="{{ route_name_prefix }}")
+     * @Method("GET")
+     * @Template()
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function indexAction(Request $request)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $em = $this->getDoctrine()->getManager();
+        $dql = "SELECT {{ entity|first|lower }} FROM {{ bundle }}:{{ entity }} {{ entity|first|lower }} ";
+        $query = $em->createQuery($dql);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, 
+            $request->query->getInt('page', 1),
+            10
+        );
+{% endblock method_body %}
+
+{% block method_return %}
+{% if 'annotation' == format %}
+        return array(
+            'pagination' => $pagination
+        );
+{% else %}
+        return $this->render('{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:index.html.twig', array(
+            'pagination' => $pagination,
+        ));
+{% endif %}
+{% endblock method_return %}
+    }

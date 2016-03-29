@@ -1,0 +1,50 @@
+{% extends 'DmThemeBundle::layout.html.twig' %}
+
+{% block breabcrumb %}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i> <a href="{{ path('dashboard')}}">控制台</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+            <a href="{{ path('role')}}">角色管理</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+            <span>角色编辑</span>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+
+{% block content_wrapper -%}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class=" icon-note font-green"></i>
+                    <span class="caption-subject font-green sbold uppercase">角色编辑</span>
+                </div>
+                <div class="actions">
+                    <a href="{{ path('role')}}" class="btn btn-sm green">返回角色列表</a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                {{ form_start(edit_form) }}
+                    {{ form_widget(edit_form)}}
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-2">
+                                <input class="btn green" type="submit" value="更新" />
+                            </div>
+                        </div>
+                    </div>
+                {{ form(edit_form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
