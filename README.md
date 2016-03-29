@@ -43,3 +43,5 @@ php app/console doctrine:fixtures:load
 php app/console cache:clear
 ```
 安装过程只在Mac下进行了测试，估计Linux下也没什么问题，有问题欢迎抛砖，Windows由于最近很少用了，有时间再写对应的安装过程
+
+样式加载不了的童鞋配置一个虚拟主机，把本地域名直接指向到项目的web目录
