@@ -263,6 +263,12 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('DmUserBundle:User')->find($id);
 
+            if ($entity->getRole()->getRole() == 'ROLE_SUPER_ADMIN') {
+                $this->addFlash('warning', '超级管理员无法删除');
+
+                return $this->redirect($this->generateUrl('user_show', array('id'=>$id)));
+            }
+
             if (!$entity) {
                 throw $this->createNotFoundException('用户数据不存在.');
             }
