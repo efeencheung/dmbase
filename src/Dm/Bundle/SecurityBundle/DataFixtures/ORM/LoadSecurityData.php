@@ -20,28 +20,28 @@ class LoadSecurityData extends AbstractFixture implements OrderedFixtureInterfac
 {
     public function load(ObjectManager $manager)
     {
-        $userRole = new Role();
-        $userRole->setName('普通用户');
-        $userRole->setRole('ROLE_USER');
-        $manager->persist($userRole);
+        $superAdminRole = new Role();
+        $superAdminRole->setName('超级管理员');
+        $superAdminRole->setRole('ROLE_SUPER_ADMIN');
+        $manager->persist($superAdminRole);
         $manager->flush();
-        $this->addReference('user-role', $userRole);
+        $this->addReference('super-admin-role', $superAdminRole);
 
         $adminRole = new Role();
         $adminRole->setName('管理员');
         $adminRole->setRole('ROLE_ADMIN');
-        $adminRole->setParent($userRole);
+        $adminRole->setParent($superAdminRole);
         $manager->persist($adminRole);
         $manager->flush();
         $this->addReference('admin-role', $adminRole);
 
-        $superAdminRole = new Role();
-        $superAdminRole->setName('超级管理员');
-        $superAdminRole->setRole('ROLE_SUPER_ADMIN');
-        $superAdminRole->setParent($adminRole);
-        $manager->persist($superAdminRole);
+        $userRole = new Role();
+        $userRole->setName('普通用户');
+        $userRole->setRole('ROLE_USER');
+        $userRole->setParent($adminRole);
+        $manager->persist($userRole);
         $manager->flush();
-        $this->addReference('super-admin-role', $superAdminRole);
+        $this->addReference('user-role', $userRole);
 
         $userAccessControl = new AccessControl();
         $userAccessControl->setName('用户管理');

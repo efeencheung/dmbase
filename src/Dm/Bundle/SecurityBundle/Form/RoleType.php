@@ -27,8 +27,9 @@ class RoleType extends AbstractType
             ->add('name', 'text', array('label'=>'角色名称'))
             ->add('role', 'text', array('label'=>'角色标识'))
             ->add('parent', 'entity', array(
-                'label'=>'父角色',
-                'class' => 'Dm\Bundle\SecurityBundle\Entity\Role',
+                'label'=>'上级角色',
+                'required'=>FALSE,
+                'class'=>'Dm\Bundle\SecurityBundle\Entity\Role',
                 'choice_label'=>function($role){
                     $placeStrNum = ($role->getLvl() + 1) * 2;
                     return '|' . str_repeat('-', $placeStrNum) . $role->getName();
@@ -36,10 +37,9 @@ class RoleType extends AbstractType
                 'query_builder'=>function($repo){
                     $qb = $repo->createQueryBuilder('r');
                     $qb->orderBy('r.lft', 'ASC');
-
                     return $qb;
                 },
-                'placeholder'=>'请选择父角色',
+                'placeholder'=>'请选择上级角色',
             ))
         ;
     }

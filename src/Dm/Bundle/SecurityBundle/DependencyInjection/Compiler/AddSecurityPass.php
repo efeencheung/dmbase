@@ -65,7 +65,7 @@ class AddSecurityPass implements CompilerPassInterface
         }
 
         /* 在编译中加入从数据库获取的角色继承数据 */
-        $sql = 'SELECT * FROM role WHERE lvl>0';
+        $sql = 'SELECT * FROM role';
         if ($stmt = $conn->query($sql)) {
             $roles =$stmt->fetchAll();
         } else {
@@ -73,11 +73,14 @@ class AddSecurityPass implements CompilerPassInterface
         }
         $hierarchy = array();
         foreach ($roles as $role) {
-            $sql = 'SELECT role FROM role WHERE lft<? AND rgt>?';
+            $sql = 'SELECT role FROM role WHERE lft>? AND rgt<?';
             $stmt = $conn->prepare($sql);
             $stmt->execute(array($role['lft'], $role['rgt']));
 
-            $hierarchy[$role['role']] = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+            $hRoles = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+            if (count($hRoles) > 0) {
+                $hierarchy[$role['role']] = $hRoles;
+            }
         }
         $container->setParameter('security.role_hierarchy.roles', $hierarchy);
         $container->removeDefinition('security.access.simple_role_voter');
