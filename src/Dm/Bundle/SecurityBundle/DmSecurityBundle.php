@@ -12,7 +12,9 @@ namespace Dm\Bundle\SecurityBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Dm\Bundle\SecurityBundle\DependencyInjection\Compiler\AddSecurityPass;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use Dm\Bundle\SecurityBundle\DependencyInjection\Compiler\AddAccessMapPass;
+use Dm\Bundle\SecurityBundle\DependencyInjection\Compiler\AddHierarchyRoleVoterPass;
 
 class DmSecurityBundle extends Bundle
 {
@@ -21,6 +23,7 @@ class DmSecurityBundle extends Bundle
     
         parent::build($container);
 
-        $container->addCompilerPass(new AddSecurityPass());
+        $container->addCompilerPass(new AddAccessMapPass(), PassConfig::TYPE_BEFORE_REMOVING);
+        $container->addCompilerPass(new AddHierarchyRoleVoterPass(), PassConfig::TYPE_BEFORE_REMOVING);
     }
 }

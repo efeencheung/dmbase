@@ -33,33 +33,4 @@ class DmSecurityExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }
-
-    /**
-     * 从数据库读取Access Control信息
-     */
-    private function createAuthorization($config, ContainerBuilder $container)
-    {
-        // 读取数据库链接
-        $dbalConfig = new \Doctrine\DBAL\Configuration();
-        $connectionParams = array(
-            'dbname' => $container->getParameter('database_name'),
-            'user' => $container->getParameter('database_user'),
-            'password' => $container->getParameter('database_password'),
-            'host' => $container->getParameter('database_host'),
-            'driver' => 'pdo_mysql',
-        );
-        $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $dbalConfig); 
-
-        $sql = 'SELECT * FROM ROLE';
-        $roles = $conn->query($sql)->fetchAll();
-        //\Symfony\Component\VarDumper\VarDumper::dump($container);die();
-
-        foreach ($roles as $role) {
-            $requestMatcher = new \Symfony\Component\HttpFoundation\RequestMatcher($role['pattern']);
-            $roles = array($role['role']);
-
-            $container->getDefinition('security.access_map')
-                ->addMethodCall('add', array($requestMatcher, $roles));
-        }
-    }
 }

@@ -3,9 +3,6 @@ security:
         Dm\Bundle\UserBundle\Entity\User:
             algorithm: bcrypt  
 
-#role_hierarchy:
-#        ROLE_SUPER_ADMIN:       ROLE_USER
-
     providers:
         administrators:            
             entity: { class: DmUserBundle:User, property: username } 
