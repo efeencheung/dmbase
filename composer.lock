@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e31014d9d21b366a9c1eeee42e5a4e28",
-    "content-hash": "ac0ec58a06b935863432a0db411d664f",
+    "hash": "a78f8b7c156181b09a4cb900291bfa2c",
+    "content-hash": "46694fcd68e3161ff7c1f55033ebc827",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -757,6 +757,100 @@
             "time": "2015-08-31 13:19:01"
         },
         {
+            "name": "efeencheung/dm-security-bundle",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/efeencheung/dm-security-bundle.git",
+                "reference": "733908ba3a5fe8d0f94f847360b410336263a2bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/efeencheung/dm-security-bundle/zipball/733908ba3a5fe8d0f94f847360b410336263a2bc",
+                "reference": "733908ba3a5fe8d0f94f847360b410336263a2bc",
+                "shasum": ""
+            },
+            "require": {
+                "efeencheung/dm-theme-bundle": "~1.0",
+                "php": ">=5.3.9",
+                "stof/doctrine-extensions-bundle": "^1.2",
+                "symfony/framework-bundle": "2.8.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dm\\Bundle\\SecurityBundle\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Efeen Cheung",
+                    "email": "261969254@qq.com"
+                }
+            ],
+            "description": "Symfony DmSecurityBundle",
+            "support": {
+                "source": "https://github.com/efeencheung/dm-security-bundle/tree/1.0.1",
+                "issues": "https://github.com/efeencheung/dm-security-bundle/issues"
+            },
+            "time": "2016-04-19 14:17:43"
+        },
+        {
+            "name": "efeencheung/dm-theme-bundle",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/efeencheung/dm-theme-bundle.git",
+                "reference": "e2e6a2753b9b2857b686e15f38af83aaf333bd73"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/efeencheung/dm-theme-bundle/zipball/e2e6a2753b9b2857b686e15f38af83aaf333bd73",
+                "reference": "e2e6a2753b9b2857b686e15f38af83aaf333bd73",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-menu-bundle": "~2.1",
+                "knplabs/knp-paginator-bundle": "~2.4",
+                "php": ">=5.3.9",
+                "symfony/framework-bundle": "2.8.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dm\\Bundle\\ThemeBundle\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Efeen Cheung",
+                    "email": "261969254@qq.com"
+                }
+            ],
+            "description": "Symfony DmThemeBundle",
+            "support": {
+                "source": "https://github.com/efeencheung/dm-theme-bundle/tree/1.0.0",
+                "issues": "https://github.com/efeencheung/dm-theme-bundle/issues"
+            },
+            "time": "2016-04-19 13:57:50"
+        },
+        {
             "name": "gedmo/doctrine-extensions",
             "version": "v2.4.13",
             "source": {
@@ -1171,26 +1265,26 @@
         },
         {
             "name": "knplabs/knp-paginator-bundle",
-            "version": "2.4.2",
+            "version": "2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "800eb12f225573869b6f04d77a6e329a6da9110f"
+                "reference": "5147740faff4d32e6f42acf64475314c35320fa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/800eb12f225573869b6f04d77a6e329a6da9110f",
-                "reference": "800eb12f225573869b6f04d77a6e329a6da9110f",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/5147740faff4d32e6f42acf64475314c35320fa4",
+                "reference": "5147740faff4d32e6f42acf64475314c35320fa4",
                 "shasum": ""
             },
             "require": {
                 "knplabs/knp-components": "~1.2",
                 "php": ">=5.3.3",
-                "symfony/framework-bundle": "~2.0",
-                "twig/twig": "~1.5"
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "twig/twig": "~1.12|~2"
             },
             "require-dev": {
-                "symfony/expression-language": "~2.4"
+                "symfony/expression-language": "~2.4|~3.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -1228,7 +1322,7 @@
                 "pagination",
                 "paginator"
             ],
-            "time": "2015-05-20 15:09:02"
+            "time": "2015-11-23 17:51:40"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -2756,6 +2850,52 @@
                 "persistence"
             ],
             "time": "2015-11-04 21:23:23"
+        },
+        {
+            "name": "efeencheung/dm-generator-bundle",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/efeencheung/dm-generator-bundle.git",
+                "reference": "ce088cfa681be1374fbe551dda57ed12dde52f84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/efeencheung/dm-generator-bundle/zipball/ce088cfa681be1374fbe551dda57ed12dde52f84",
+                "reference": "ce088cfa681be1374fbe551dda57ed12dde52f84",
+                "shasum": ""
+            },
+            "require": {
+                "efeencheung/dm-theme-bundle": "~1.0",
+                "php": ">=5.3.9",
+                "symfony/framework-bundle": "2.8.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dm\\Bundle\\GeneratorBundle\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Efeen Cheung",
+                    "email": "261969254@qq.com"
+                }
+            ],
+            "description": "Symfony DmGeneratorBundle",
+            "support": {
+                "source": "https://github.com/efeencheung/dm-generator-bundle/tree/1.0.1",
+                "issues": "https://github.com/efeencheung/dm-generator-bundle/issues"
+            },
+            "time": "2016-04-19 14:16:53"
         },
         {
             "name": "sensio/generator-bundle",

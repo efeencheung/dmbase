@@ -6,6 +6,20 @@
     "autoload": {
         "psr-4": { "": "src/" }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/efeencheung/dm-theme-bundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/efeencheung/dm-security-bundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/efeencheung/dm-generator-bundle"
+        }
+    ],
     "require": {
         "php": ">=5.3.9",
         "symfony/symfony": "2.8.*",
@@ -16,15 +30,15 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "knplabs/knp-paginator-bundle": "2.4.*",
         "incenteev/composer-parameter-handler": "~2.0",
-        "stof/doctrine-extensions-bundle": "^1.2",
-        "knplabs/knp-menu-bundle": "^2.1"
+        "efeencheung/dm-theme-bundle": "1.0.*",
+        "efeencheung/dm-security-bundle": "1.0.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
         "symfony/phpunit-bridge": "~2.7",
-        "doctrine/doctrine-fixtures-bundle": "^2.3"
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "efeencheung/dm-generator-bundle": "1.0.*"
     },
     "scripts": {
         "post-install-cmd": [
