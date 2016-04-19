@@ -25,7 +25,12 @@ class AddAccessMapPass implements CompilerPassInterface
     {
         $em = $container->get('doctrine')->getManager();
 
-        $accessControls = $em->getRepository('DmSecurityBundle:AccessControl')->findAll();
+        try {
+            $accessControls = $em->getRepository('DmSecurityBundle:AccessControl')->findAll();
+        } catch (\Exception $e) {
+            return;
+        }
+
         foreach ($accessControls as $accessControl) {
             $roleCollection = $accessControl->getRoles(); 
             $roles = array();

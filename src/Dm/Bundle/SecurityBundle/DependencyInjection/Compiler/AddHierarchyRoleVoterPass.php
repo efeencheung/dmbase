@@ -25,8 +25,12 @@ class AddHierarchyRoleVoterPass implements CompilerPassInterface
     {
         $em = $container->get('doctrine')->getManager();
 
-        $roleRepo = $em->getRepository('DmSecurityBundle:Role');
-        $roleCollection = $roleRepo->findAll();
+        try {
+            $roleRepo = $em->getRepository('DmSecurityBundle:Role');
+            $roleCollection = $roleRepo->findAll();
+        } catch (\Exception $e) {
+            return;
+        }
 
         $hierarchy = array();
         foreach ($roleCollection as $role) {
