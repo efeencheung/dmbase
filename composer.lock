@@ -758,16 +758,16 @@
         },
         {
             "name": "efeencheung/dm-security-bundle",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/efeencheung/dm-security-bundle.git",
-                "reference": "733908ba3a5fe8d0f94f847360b410336263a2bc"
+                "reference": "614bd756ea283206f1c48043de1c1a9088d42f18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/efeencheung/dm-security-bundle/zipball/733908ba3a5fe8d0f94f847360b410336263a2bc",
-                "reference": "733908ba3a5fe8d0f94f847360b410336263a2bc",
+                "url": "https://api.github.com/repos/efeencheung/dm-security-bundle/zipball/614bd756ea283206f1c48043de1c1a9088d42f18",
+                "reference": "614bd756ea283206f1c48043de1c1a9088d42f18",
                 "shasum": ""
             },
             "require": {
@@ -798,10 +798,10 @@
             ],
             "description": "Symfony DmSecurityBundle",
             "support": {
-                "source": "https://github.com/efeencheung/dm-security-bundle/tree/1.0.1",
+                "source": "https://github.com/efeencheung/dm-security-bundle/tree/1.0.2",
                 "issues": "https://github.com/efeencheung/dm-security-bundle/issues"
             },
-            "time": "2016-04-19 14:17:43"
+            "time": "2016-04-25 14:31:51"
         },
         {
             "name": "efeencheung/dm-theme-bundle",
@@ -1265,16 +1265,16 @@
         },
         {
             "name": "knplabs/knp-paginator-bundle",
-            "version": "2.5.1",
+            "version": "2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "5147740faff4d32e6f42acf64475314c35320fa4"
+                "reference": "c988761005504007c6c87d6a557641281194a0e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/5147740faff4d32e6f42acf64475314c35320fa4",
-                "reference": "5147740faff4d32e6f42acf64475314c35320fa4",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/c988761005504007c6c87d6a557641281194a0e5",
+                "reference": "c988761005504007c6c87d6a557641281194a0e5",
                 "shasum": ""
             },
             "require": {
@@ -1289,7 +1289,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                    "dev-master": "2.5.x-dev"
                 }
             },
             "autoload": {
@@ -1322,7 +1322,7 @@
                 "pagination",
                 "paginator"
             ],
-            "time": "2015-11-23 17:51:40"
+            "time": "2016-04-20 11:40:30"
         },
         {
             "name": "kriswallsmith/assetic",
