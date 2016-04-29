@@ -1,3 +1,8 @@
+dm_media:
+    resource: "@DmMediaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 dm_security:
     resource: "@DmSecurityBundle/Controller/"
     type:     annotation

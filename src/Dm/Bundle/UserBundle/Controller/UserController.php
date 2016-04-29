@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Dm\Bundle\UserBundle\Entity\User;
 use Dm\Bundle\UserBundle\Form\UserType;
+use Dm\Bundle\SecurityBundle\Entity\Role;
 
 /**
  * 用户控制器.
@@ -69,6 +70,8 @@ class UserController extends Controller
             $encoder = $factory->getEncoder($entity);
             $password = $encoder->encodePassword($form->get('password')->getData(), $entity->getSalt());
             $entity->setPassword($password);
+
+            $entity->getAvatar()->setFilename($entity->getName() . '-头像');
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -234,6 +237,8 @@ class UserController extends Controller
                 $entity->setPassword($password);
             }
 
+            $entity->getAvatar()->setFilename($entity->getName());
+
             $em->flush();
 
             $this->addFlash('success', '用户更新成功');
@@ -262,8 +267,9 @@ class UserController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('DmUserBundle:User')->find($id);
+            $role = $entity->getRole();
 
-            if ($entity->getRole()->getRole() == 'ROLE_SUPER_ADMIN') {
+            if ($role instanceof Role && $entity->getRole()->getRole() == 'ROLE_SUPER_ADMIN') {
                 $this->addFlash('warning', '超级管理员无法删除');
 
                 return $this->redirect($this->generateUrl('user_show', array('id'=>$id)));

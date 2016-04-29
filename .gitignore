@@ -10,4 +10,6 @@
 /vendor/
 /bin/
 /composer.phar
+*.swp
+tags
 .DS_Store

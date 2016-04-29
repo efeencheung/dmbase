@@ -12,6 +12,8 @@ namespace Dm\Bundle\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Dm\Bundle\MediaBundle\Entity\Image;
 
 /**
  * User
@@ -39,6 +41,8 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255)
+     * @Assert\NotBlank(message="该选项是必填项，不能为空", groups={"create"})
+     * @Assert\Regex(pattern="/^[0-9a-z]{4,18}$/", message="输入格式不正确", groups={"create"})
      */
     private $username;
 
@@ -48,6 +52,8 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank(message="该选项是必填项，不能为空", groups={"create"})
+     * @Assert\Length(min=4, max=18, minMessage="密码长度为4-18位", maxMessage="密码长度为4-18位", groups={"create", "edit"})
      */
     private $password;
 
@@ -57,6 +63,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="showname", type="string", length=255)
+     * @Assert\NotBlank(message="该选项是必填项，不能为空", groups={"create", "edit"})
      */
     private $showname;
 
@@ -87,6 +94,15 @@ class User implements UserInterface
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
     private $role;
+
+    /**
+     * @var Image
+     * 
+     * @ORM\ManyToOne(targetEntity="\Dm\Bundle\MediaBundle\Entity\Image", cascade={"all"})
+     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     */
+    private $avatar;
+   
 
     /**
      * Get id
@@ -280,5 +296,26 @@ class User implements UserInterface
     public function getRole()
     {
         return $this->role;
+    }
+ 
+    public function setAvatar(Image $avatar)
+    {
+        $this->avatar = $avatar;
+    
+        return $this;
+    }
+    
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function getName()
+    {
+        if ($this->showname !== null) {
+            return $this->showname;
+        }
+
+        return $this->username;
     }
 }

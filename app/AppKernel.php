@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Dm\Bundle\UserBundle\DmUserBundle(),
             new Dm\Bundle\GeneratorBundle\DmGeneratorBundle,
             new Dm\Bundle\SecurityBundle\DmSecurityBundle(),
+            new Dm\Bundle\MediaBundle\DmMediaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
