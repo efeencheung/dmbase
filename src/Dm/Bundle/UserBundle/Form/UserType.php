@@ -89,7 +89,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Dm\Bundle\UserBundle\Entity\User',
-            'attr' => array('data-parsley-validate'=>'data-parsley-validate')
+            'attr' => array('data-parsley-validate'=>'data-parsley-validate'),
             'cascade_validation' => true,
         ));
     }

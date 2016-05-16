@@ -4,22 +4,28 @@
     "type": "project",
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-4": { "": "src/" }
+        "psr-4": {
+            "": "src/"
+        }
     },
-    "repositories": [
-        {
+    "repositories": {
+        "0": {
             "type": "vcs",
             "url": "https://github.com/efeencheung/dm-theme-bundle"
         },
-        {
+        "1": {
             "type": "vcs",
             "url": "https://github.com/efeencheung/dm-security-bundle"
         },
-        {
+        "2": {
             "type": "vcs",
             "url": "https://github.com/efeencheung/dm-generator-bundle"
+        },
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
         }
-    ],
+    },
     "require": {
         "php": ">=5.3.9",
         "symfony/symfony": "2.8.*",
@@ -31,6 +37,7 @@
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
+        "liip/imagine-bundle": "1.5.*",
         "efeencheung/dm-theme-bundle": "1.0.*",
         "efeencheung/dm-security-bundle": "1.0.*"
     },

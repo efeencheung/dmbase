@@ -12,7 +12,7 @@ security:
 
     firewalls:
         dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            pattern:  ^/(_(profiler|wdt)|css|images|js|uploads|media)/
             security: false
 
         login:
@@ -25,7 +25,7 @@ security:
             form_login:
                 check_path: login_check
                 login_path: login
-            
+                default_target_path: /admin/dashboard 
             logout: 
                 path: logout
                 target: login

@@ -102,3 +102,15 @@ knp_menu:
         template: 'DmThemeBundle::knp_menu.html.twig'
     templating: false
     default_renderer: twig
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        avatar_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [29, 29], mode: outbound }

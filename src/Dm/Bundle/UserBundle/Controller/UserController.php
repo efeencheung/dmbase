@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Dm\Bundle\UserBundle\Entity\User;
 use Dm\Bundle\UserBundle\Form\UserType;
 use Dm\Bundle\SecurityBundle\Entity\Role;
+use Dm\Bundle\MediaBundle\Entity\Image;
 
 /**
  * 用户控制器.
@@ -71,7 +72,10 @@ class UserController extends Controller
             $password = $encoder->encodePassword($form->get('password')->getData(), $entity->getSalt());
             $entity->setPassword($password);
 
-            $entity->getAvatar()->setFilename($entity->getName() . '-头像');
+            $avatar = $entity->getAvatar();
+            if ($avatar instanceof Image) {
+                $entity->getAvatar()->setFilename($entity->getName() . '-头像');
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -173,10 +177,6 @@ class UserController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
-            $editForm->remove('role');
-        }
-
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -198,6 +198,10 @@ class UserController extends Controller
             'method' => 'PUT',
             'validation_groups' => array('edit'),
         ));
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            $form->remove('role');
+        }
 
         return $form;
     }
@@ -237,7 +241,10 @@ class UserController extends Controller
                 $entity->setPassword($password);
             }
 
-            $entity->getAvatar()->setFilename($entity->getName());
+            $avatar = $entity->getAvatar();
+            if ($avatar instanceof Image) {
+                $entity->getAvatar()->setFilename($entity->getName());
+            }	
 
             $em->flush();
 

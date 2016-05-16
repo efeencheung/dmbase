@@ -16,6 +16,9 @@ dm_theme:
     resource: "@DmThemeBundle/Controller"
     type:     annotation
 
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
 login_check:
     path: /admin/login_check
 
