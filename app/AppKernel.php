@@ -20,11 +20,10 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            new Dm\Bundle\ThemeBundle\DmThemeBundle(),
+            new Dm\Bundle\AdminBundle\DmAdminBundle(),
             new Dm\Bundle\UserBundle\DmUserBundle(),
             new Dm\Bundle\GeneratorBundle\DmGeneratorBundle,
             new Dm\Bundle\SecurityBundle\DmSecurityBundle(),
-            new Dm\Bundle\MediaBundle\DmMediaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

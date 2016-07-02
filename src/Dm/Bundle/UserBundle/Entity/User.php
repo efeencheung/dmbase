@@ -13,7 +13,7 @@ namespace Dm\Bundle\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Dm\Bundle\MediaBundle\Entity\Image;
+use Dm\Bundle\AdminBundle\Entity\Picture;
 
 /**
  * User
@@ -22,7 +22,7 @@ use Dm\Bundle\MediaBundle\Entity\Image;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class User implements UserInterface 
+class User implements UserInterface, \Serializable 
 {
     /**
      * ID
@@ -96,10 +96,10 @@ class User implements UserInterface
     private $role;
 
     /**
-     * @var Image
+     * @var Picture
      * 
-     * @ORM\ManyToOne(targetEntity="\Dm\Bundle\MediaBundle\Entity\Image", cascade={"all"})
-     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="\Dm\Bundle\AdminBundle\Entity\Picture", cascade={"all"})
+     * @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
      */
     private $avatar;
    
@@ -298,13 +298,24 @@ class User implements UserInterface
         return $this->role;
     }
  
-    public function setAvatar(Image $avatar)
+    /**
+     * Set avatar
+     *
+     * @param \Dm\Bundle\AdminBundle\Entity\Picture
+     * @return User
+     */
+    public function setAvatar(Picture $avatar)
     {
         $this->avatar = $avatar;
     
         return $this;
     }
     
+    /**
+     * Get avatar
+     *
+     * @return \Dm\Bundle\AdminBundle\Entity\Picture
+     */
     public function getAvatar()
     {
         return $this->avatar;
@@ -317,5 +328,29 @@ class User implements UserInterface
         }
 
         return $this->username;
+    }
+
+    /** 
+     * @see \Serializable::serialize() 
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+        ));
+    }
+
+    /** 
+     * @see \Serializable::unserialize() 
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+        ) = unserialize($serialized);
     }
 }

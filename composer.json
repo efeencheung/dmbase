@@ -11,7 +11,7 @@
     "repositories": {
         "0": {
             "type": "vcs",
-            "url": "https://github.com/efeencheung/dm-theme-bundle"
+            "url": "https://github.com/efeencheung/dm-admin-bundle"
         },
         "1": {
             "type": "vcs",
@@ -27,7 +27,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=5.4.0",
         "symfony/symfony": "2.8.*",
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
@@ -38,14 +38,16 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "liip/imagine-bundle": "1.5.*",
-        "efeencheung/dm-theme-bundle": "1.0.*",
-        "efeencheung/dm-security-bundle": "1.0.*"
+        "leafo/scssphp":"0.6.*",
+        "patchwork/jsqueeze": "2.0.*",
+        "efeencheung/dm-admin-bundle": "0.0.*",
+        "efeencheung/dm-security-bundle": "0.0.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
         "symfony/phpunit-bridge": "~2.7",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
-        "efeencheung/dm-generator-bundle": "1.0.*"
+        "efeencheung/dm-generator-bundle": "0.0.*"
     },
     "scripts": {
         "post-install-cmd": [
@@ -68,7 +70,7 @@
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.3.9"
+            "php": "5.4.0"
         }
     },
     "extra": {

@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Dm\Bundle\UserBundle\Entity\User;
 use Dm\Bundle\UserBundle\Form\UserType;
 use Dm\Bundle\SecurityBundle\Entity\Role;
-use Dm\Bundle\MediaBundle\Entity\Image;
+use Dm\Bundle\AdminBundle\Entity\Picture;
 
 /**
  * 用户控制器.
@@ -72,12 +72,13 @@ class UserController extends Controller
             $password = $encoder->encodePassword($form->get('password')->getData(), $entity->getSalt());
             $entity->setPassword($password);
 
-            $avatar = $entity->getAvatar();
-            if ($avatar instanceof Image) {
-                $entity->getAvatar()->setFilename($entity->getName() . '-头像');
+            $em = $this->getDoctrine()->getManager();
+
+            if (!$entity->getRole()) {
+                $role = $em->getRepository('DmSecurityBundle:Role')->findOneBy(array('role' => 'ROLE_USER'));
+                $entity->setRole($role);
             }
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -219,6 +220,15 @@ class UserController extends Controller
 
         $entity = $em->getRepository('DmUserBundle:User')->find($id);
 
+        $currentUserRoleLvl = $this->getUser()->getRole()->getLvl();
+        $userRoleLvl = $entity->getRole()->getLvl();
+
+        if ($currentUserRoleLvl >= $userRoleLvl) {
+            $this->addFlash('warning', '您没有修改该用户信息的权限');
+
+            return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
+        }
+
         if (!$entity) {
             throw $this->createNotFoundException('User数据不存在.');
         }
@@ -240,11 +250,6 @@ class UserController extends Controller
                 $password = $encoder->encodePassword($newPassword, $entity->getSalt());
                 $entity->setPassword($password);
             }
-
-            $avatar = $entity->getAvatar();
-            if ($avatar instanceof Image) {
-                $entity->getAvatar()->setFilename($entity->getName());
-            }	
 
             $em->flush();
 
@@ -271,16 +276,20 @@ class UserController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('DmUserBundle:User')->find($id);
+
+        $currentUserRoleLvl = $this->getUser()->getRole()->getLvl();
+        $userRoleLvl = $entity->getRole()->getLvl();
+
+        if ($currentUserRoleLvl >= $userRoleLvl) {
+            $this->addFlash('warning', '您没有删除该用户的权限');
+
+            return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
+        }
+
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('DmUserBundle:User')->find($id);
             $role = $entity->getRole();
-
-            if ($role instanceof Role && $entity->getRole()->getRole() == 'ROLE_SUPER_ADMIN') {
-                $this->addFlash('warning', '超级管理员无法删除');
-
-                return $this->redirect($this->generateUrl('user_show', array('id'=>$id)));
-            }
 
             if (!$entity) {
                 throw $this->createNotFoundException('用户数据不存在.');

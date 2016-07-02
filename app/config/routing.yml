@@ -1,8 +1,3 @@
-dm_media:
-    resource: "@DmMediaBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 dm_security:
     resource: "@DmSecurityBundle/Controller/"
     type:     annotation
@@ -13,7 +8,7 @@ dm_user:
     type:     annotation
 
 dm_theme:
-    resource: "@DmThemeBundle/Controller"
+    resource: "@DmAdminBundle/Controller"
     type:     annotation
 
 _liip_imagine:

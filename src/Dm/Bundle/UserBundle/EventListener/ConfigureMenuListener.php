@@ -10,7 +10,7 @@
 
 namespace Dm\Bundle\UserBundle\EventListener;
 
-use Dm\Bundle\ThemeBundle\Event\ConfigureMenuEvent;
+use Dm\Bundle\AdminBundle\Event\ConfigureMenuEvent;
 
 class ConfigureMenuListener
 {
@@ -22,7 +22,7 @@ class ConfigureMenuListener
     }
 
     /**
-     * @param \Dm\Bundle\ThemeBundle\Event\ConfigureMenuEvent $event
+     * @param \Dm\Bundle\AdminBundle\Event\ConfigureMenuEvent $event
      */
     public function onMenuConfigure(ConfigureMenuEvent $event)
     {

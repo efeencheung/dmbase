@@ -18,7 +18,7 @@ use Symfony\Component\Form\SubmitButtonTypeInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Dm\Bundle\MediaBundle\Form\ImageType;
+use Dm\Bundle\AdminBundle\Form\PictureType;
 
 class UserType extends AbstractType
 {
@@ -74,7 +74,7 @@ class UserType extends AbstractType
                 'placeholder'=>'请选择用户角色',
             ))
             ->add('showname', 'text', array('label'=>'显示名称'))
-            ->add('avatar', ImageType::class, array(
+            ->add('avatar', PictureType::class, array(
                 'required'=>false, 
                 'cascade_validation' => true,
                 'label'=>'用户头像'

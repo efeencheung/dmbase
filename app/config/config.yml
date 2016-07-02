@@ -35,7 +35,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes:
-        - 'DmThemeBundle::form_metronic_layout.html.twig'
+        - 'DmAdminBundle::form_metronic_layout.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -99,7 +99,7 @@ stof_doctrine_extensions:
 
 knp_menu:
     twig:
-        template: 'DmThemeBundle::knp_menu.html.twig'
+        template: 'DmAdminBundle::knp_menu.html.twig'
     templating: false
     default_renderer: twig
 
