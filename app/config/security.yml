@@ -24,11 +24,11 @@ security:
             access_denied_url: /denied
             form_login:
                 check_path: login_check
-                login_path: login
+                login_path: admin_login
                 default_target_path: /admin/dashboard 
             logout: 
                 path: logout
-                target: login
+                target: admin_login
             remember_me:
                 key:      "%secret%"
                 lifetime: 604800
