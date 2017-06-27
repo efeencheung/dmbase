@@ -1,0 +1,80 @@
+{% extends 'DmAdminBundle::layout.html.twig' %}
+
+{% block breabcrumb %}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+        <i class="fa fa-dashboard"></i> <a href="{{ path('dashboard')}}">控制台</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+        <span>图片资讯管理</span>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content_wrapper -%}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-layers font-green"></i>
+                    <span class="caption-subject font-green sbold uppercase">图片资讯列表</span>
+                </div>
+                <div class="inputs">
+                    <form action="{{ path('admin_photo')}}" method="get" accept-charset="utf-8">
+                        <div class="portlet-input input-inline input-medium">
+                            <div class="input-group">
+                                <input type="text" name="keywords" class="form-control input-sm" value="{{ keywords }}" placeholder="请输入标题中的关键词">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary btn-sm" type="submit">查找</button>
+                                </span>
+                            </div>
+                        </div>
+                        <a href="{{ path('admin_photo_new') }}" class="btn btn-sm green"><i class="fa fa-plus"></i> 添加新图片资讯</a>
+                    </form>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr>
+                                <th style="width:10%;">图片</th>
+                                <th>图片资讯标题</th>
+                                <th>发布时间</th>
+                                <th style="width:10%; text-align:right;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in pagination %}
+                            <tr>
+                                <td>
+                                    {% if entity.picture %}
+                                        <img src="{{ entity.picture.getWebPath|imagine_filter('admin_list') }}" /></td>
+                                    {% else %}
+                                        <img src="{{ '/bundles/dmadmin/metronic/img/default-picture.jpg'|imagine_filter('admin_list') }}" /></td>
+                                    {% endif %}
+                                <td>{{ entity.title }}</td>
+                                <td>{{ entity.publishedAt|date('Y-m-d H:i:s') }}</td>                            
+                                <td style="width:10%; text-align:right;">
+                                    <a title="添加图片" href="{{ path('admin_photo_show', { 'id': entity.id }) }}"><i class="fa fa-plus"></i></a>
+                                    <a title="查看" href="{{ path('admin_photo_show', { 'id': entity.id }) }}"><i class="fa fa-file-o"></i></a>
+                                    <a title="编辑" href="{{ path('admin_photo_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
+                                    <a title="删除" href="{{ path('admin_photo_show', { 'id': entity.id }) }}"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

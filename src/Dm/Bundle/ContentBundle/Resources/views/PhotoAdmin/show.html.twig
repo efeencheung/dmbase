@@ -1,0 +1,204 @@
+{% extends 'DmAdminBundle::layout.html.twig' %}
+
+{% block breabcrumb %}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i> <a href="{{ path('dashboard')}}">控制台</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+            <a href="{{ path('admin_photo')}}">图片资讯管理</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+            <span>图片资讯查看</span>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content_wrapper -%}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-docs font-green"></i>
+                    <span class="caption-subject font-green sbold uppercase">图片资讯查看</span>
+                </div>
+                <div id="dropzone" class="actions">
+                    <button class="btn btn-sm green fileinput"><i class="fa fa-plus"></i> 添加图片</button>
+                    <button class="btn btn-sm blue start"><i class="fa fa-upload"></i> 开始上传</button>
+                    <button class="btn btn-sm yellow cancel"><i class="fa fa-ban"></i> 取消</button>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div>
+                    <div id="preview-container" class="clearfix">
+                    </div>
+                </div>
+                <div id="pictures-container" class="clearfix">
+                    {% for picture in entity.pictures  %}
+                    <div class="picture-item">
+                        <img src="{{ picture.getWebPath|imagine_filter('picture_list') }}" alt=""/>
+                        <button class="btn btn-sm red remove" data-pid="{{ picture.id }}">删除</button>
+                        <button class="btn btn-sm blue intro" data-toggle="modal" data-target="#intro-modal" data-pid="{{ picture.id }}">描述</button>
+                    </div>
+                    {% endfor %}
+                </div>
+				<div id="preview-template" style="display: none;">
+					<div class="dz-preview dz-file-preview">
+						<img data-dz-thumbnail />
+                        <button data-dz-remove class="btn btn-icon-only red"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+                {{ form_delete(delete_form, entity.id) }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="intro-modal" tabindex="-1" role="dialog" aria-labelledby="intro-modal-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="intro-modal-label">输入图片描述</h4>
+            </div>
+            <div class="modal-body">
+                <textarea id="picture-intro" class="form-control" name="intro" rows="10"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-pid="0">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+<style type="text/css" media="screen">
+    #preview-container {
+        margin: -10px;
+    }
+    .dz-preview {
+        float: left;
+        margin: 10px;
+        position: relative;
+    } 
+    .dz-preview button {
+        position: absolute;
+        top:0;
+        right:0;
+    }
+    .dz-preview .dz-progress {
+        width: 100%;
+        height: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    #pictures-container {
+        margin: -10px -10px 0;
+    }
+
+    .picture-item {
+        width: calc(12.5% - 20px);
+        float: left;
+        margin: 10px;
+        position: relative;
+    } 
+
+    .picture-item img {
+        width: 100%;
+        display: block;
+    }
+
+    .picture-item button.remove {
+        width: 50%;
+        position: absolute;
+        bottom:0;
+        right:0;
+        display: none;
+    }
+
+    .picture-item button.intro {
+        width: 50%;
+        position: absolute;
+        bottom:0;
+        left:0;
+        display: none;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block scripts %}
+<script src="/bundles/dmcontent/js/dropzone.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+        $('#pictures-container').on('mouseover', '.picture-item', function(){
+            $(this).find('button.remove').css('display', 'block');
+            $(this).find('button.intro').css('display', 'block');
+        });
+        
+        $('#pictures-container').on('mouseout', '.picture-item',function(){
+            $(this).find('button.remove').css('display', 'none');
+            $(this).find('button.intro').css('display', 'none');
+        });
+
+        $('#pictures-container').on('click', 'button.remove', function(){
+            var pid = $(this).data('pid');
+            $.ajax({
+                url:"/admin/photo/{{ entity.id }}/remove/" + pid,
+            }).done(function(data){
+                updatePictures();
+            });
+        });
+
+        function updatePictures() {
+            $.ajax({
+                url:"/admin/photo/{{ entity.id }}/pictures",
+            }).done(function(data){
+                $('#pictures-container').html(data);
+            });
+        }
+
+        var containerWidth = window.innerWidth - 317;
+        var imageWidth = (containerWidth - 180)/8;
+        var myDropzone = new Dropzone('div#dropzone', { 
+            url: "{{ path('admin_photo_add', { 'id': entity.id }) }}",
+            paramName: "dm_image[file]",
+            thumbnailWidth: imageWidth,
+            thumbnailHeight: imageWidth,
+            parallelUploads: 20,
+            previewTemplate: document.getElementById('preview-template').innerHTML,
+            previewsContainer: document.getElementById('preview-container'),
+            autoQueue: false, // Make sure the files aren't queued until manually added
+            clickable: ".fileinput" // Define the element that should be used as click trigger to select files.
+        });
+
+        document.querySelector("#dropzone .start").onclick = function() {
+            myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+        };
+
+        myDropzone.on("complete", function(file) {
+              myDropzone.removeFile(file);
+        });
+
+        myDropzone.on("queuecomplete", function() {
+            updatePictures();
+        });
+
+        myDropzone.on("addedfile", function() {
+            $('#preview-container').parent().addClass('well well-lg');
+        });
+
+        myDropzone.on("reset", function() {
+            $('#preview-container').parent().removeClass('well well-lg');
+        });
+    });
+</script>
+{% endblock %}

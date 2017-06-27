@@ -1,0 +1,7 @@
+{% for picture in pictures  %}
+<div class="picture-item">
+    <img src="{{ picture.getWebPath|imagine_filter('picture_list') }}" alt=""/>
+    <button class="btn btn-sm red remove" data-pid="{{ picture.id }}">删除</button>
+    <button class="btn btn-sm blue intro" data-pid="{{ picture.id }}">标注</button>
+</div> 
+{% endfor %}

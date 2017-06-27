@@ -5,6 +5,8 @@
 !web/upload/image/.gitkeep
 /web/upload/file/*
 !web/upload/file/.gitkeep
+/web/admin/node_modules/
+/web/admin/dist/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml

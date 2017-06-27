@@ -1,0 +1,122 @@
+{% extends 'DmAdminBundle::layout.html.twig' %}
+
+{% block breabcrumb %}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i> <a href="{{ path('dashboard')}}">控制台</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+            <a href="{{ path('admin_article')}}">图文资讯管理</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+            <span>图文资讯编辑</span>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+
+{% block content_wrapper -%}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class=" icon-note font-green"></i>
+                    <span class="caption-subject font-green sbold uppercase">图文资讯编辑</span>
+                </div>
+                <div class="actions">
+                    <a href="{{ path('admin_article')}}" class="btn btn-sm green">返回图文资讯列表</a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                {{ form_start(edit_form) }}
+                    <div class="form-group{% if not edit_form.title.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-9">
+                            {{- form_widget(edit_form.title) -}}
+                            {{- form_errors(edit_form.title) -}}
+                            <span class="help-block help-block-error errors-container"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if edit_form.title.vars.attr.help is defined -%}{{ edit_form.title.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group{% if not edit_form.author.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-9">
+                            {{- form_widget(edit_form.author) -}}
+                            {{- form_errors(edit_form.author) -}}
+                            <span class="help-block help-block-error errors-container"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if edit_form.author.vars.attr.help is defined -%}{{ edit_form.author.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group{% if not edit_form.content.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-9">
+                            {{- form_widget(edit_form.content) -}}
+                            {{- form_errors(edit_form.content) -}}
+                            <span class="help-block help-block-error errors-container"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if edit_form.content.vars.attr.help is defined -%}{{ edit_form.content.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group{% if not edit_form.tags.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-6">
+                            {{- form_widget(edit_form.tags) -}}
+                            {{- form_errors(edit_form.tags) -}}
+                            <span class="help-block help-block-error errors-container"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if edit_form.tags.vars.attr.help is defined -%}{{ edit_form.tags.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="img form-group{% if not edit_form.picture.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-6">
+                            {% for child in edit_form.picture  %}
+                            {{- form_widget(child) -}}
+                            <span class="help-block help-block-error errors-container">{{- form_errors(child) -}}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if edit_form.picture.vars.attr.help is defined -%}{{ edit_form.picture.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group{% if not edit_form.publishedAt.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-6">
+                            {{- form_widget(edit_form.publishedAt) -}}
+                            {{- form_errors(edit_form.publishedAt) -}}
+                            <span class="help-block help-block-error errors-container"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if edit_form.publishedAt.vars.attr.help is defined -%}{{ edit_form.publishedAt.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-2">
+                                <input class="btn green" type="submit" value="更新" />
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

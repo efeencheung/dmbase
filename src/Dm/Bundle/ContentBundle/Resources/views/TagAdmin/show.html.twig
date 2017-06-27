@@ -1,0 +1,50 @@
+{% extends 'DmAdminBundle::layout.html.twig' %}
+
+{% block breabcrumb %}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i> <a href="{{ path('dashboard')}}">控制台</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+            <a href="{{ path('admin_tag')}}">标签管理</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+            <span>标签查看</span>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content_wrapper -%}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-docs font-green"></i>
+                    <span class="caption-subject font-green sbold uppercase">标签查看</span>
+                </div>
+                <div class="actions">
+                    <a href="{{ path('admin_tag') }}" class="btn btn-sm green"><i class="fa fa-reply"></i> 返回标签列表</a>
+                    <a href="{{ path('admin_tag_edit', {id: entity.id}) }}" class="btn btn-sm default"><i class="fa fa-edit"></i> 编辑</a>
+                    <a href="javascript:;" class="btn btn-sm red delete-link" data-did="{{ entity.id }}"><i class="fa fa-trash-o"></i> 删除</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                        <tr>
+                            <td style="width: 20%;">标签名称</td>
+                            <td>{{ entity.name }}</td>
+                        </tr>                        
+                    </tbody>
+                </table>
+                {{ form_delete(delete_form, entity.id) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

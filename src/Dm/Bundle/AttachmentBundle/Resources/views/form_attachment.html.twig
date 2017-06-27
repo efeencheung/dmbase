@@ -1,0 +1,71 @@
+{%- block file_widget -%}
+    {%- set type = type|default('file') -%}
+    <div class="fileinput fileinput-new" data-provides="fileinput">
+        <div class="input-group input-large">
+            <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                <span class="fileinput-filename"> </span>
+            </div>
+            <span class="input-group-addon btn default btn-file">
+                <span class="fileinput-new"> 选择文件 </span>
+                <span class="fileinput-exists"> 更改 </span>
+                {{ block('form_widget_simple') }}
+            </span>
+            <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> 删除 </a>
+        </div>
+    </div>
+{%- endblock file_widget -%}
+
+{%- block image_widget -%}
+    {%- set type = type|default('file') -%}
+	<div class="fileinput fileinput-new" data-provides="fileinput">
+        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"> 
+            {% if value  %}
+            <img src="{{ value }}" alt="..."> 
+            {% else %}
+                {% if form.parent.vars.attr.placeholder is defined %}
+                    {{ form.parent.vars.attr.placeholder }}
+                {% endif %}
+            {% endif %}
+        </div>
+		<div>
+			<span class="btn red btn-outline btn-file">
+				<span class="fileinput-new"> 选择图片 </span>
+				<span class="fileinput-exists"> 更改 </span>
+				{{ block('form_widget_simple') }}
+            </span>
+			<a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> 删除 </a>
+		</div>
+	</div>
+{%- endblock image_widget -%}
+
+{% block dm_image_row -%}
+    <div class="img form-group{% if not valid %} has-error{% endif %}">
+        {{ form_label(form) -}}
+        <div class="{{ block('form_group_class') }}">
+            {% for child in form  %}
+                {{- form_widget(child) -}}
+                <span class="help-block help-block-error errors-container">{{- form_errors(child) -}}</span>
+            {% endfor %}
+        </div>
+        <div class="col-md-4">
+            <span class="help-block" style="margin-top: 7px;">{%- if form.vars.attr.help is defined -%}{{ form.vars.attr.help }}{%- endif -%}</span>
+        </div>
+    </div>
+{% endblock dm_image_row -%}
+
+{% block dm_audio_row -%}
+    <div class="form-group{% if not valid %} has-error{% endif %}">
+        {{ form_label(form) -}}
+        <div class="{{ block('form_group_class') }}">
+            {% for child in form  %}
+                {{- form_widget(child) -}}
+                <span class="help-block help-block-error errors-container">{{- form_errors(child) -}}</span>
+            {% endfor %}
+        </div>
+        <div class="col-md-4">
+            <span class="help-block" style="margin-top: 7px;">{%- if form.vars.attr.help is defined -%}{{ form.vars.attr.help }}{%- endif -%}</span>
+        </div>
+    </div>
+{% endblock dm_audio_row -%}
+

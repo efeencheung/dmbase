@@ -1,0 +1,121 @@
+{% extends 'DmAdminBundle::layout.html.twig' %}
+
+{% block breabcrumb %}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i> <a href="{{ path('dashboard')}}">控制台</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+            <a href="{{ path('admin_article')}}">图文资讯管理</a>
+        </li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li>
+            <span>图文资讯创建</span>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content_wrapper -%}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class=" icon-plus font-green"></i>
+                    <span class="caption-subject font-green sbold uppercase">图文资讯创建</span>
+                </div>
+                <div class="actions">
+                    <a href="{{ path('admin_article')}}" class="btn btn-sm green">返回图文资讯列表</a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                {{ form_start(form) }}
+                    <div class="form-group{% if not form.title.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-9">
+                            {{- form_widget(form.title) -}}
+                            {{- form_errors(form.title) -}}
+                            <span class="help-block help-block-error errors-container"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if form.title.vars.attr.help is defined -%}{{ form.title.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group{% if not form.author.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-9">
+                            {{- form_widget(form.author) -}}
+                            {{- form_errors(form.author) -}}
+                            <span class="help-block help-block-error errors-container"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if form.author.vars.attr.help is defined -%}{{ form.author.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group{% if not form.content.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-9">
+                            {{- form_widget(form.content) -}}
+                            {{- form_errors(form.content) -}}
+                            <span class="help-block help-block-error errors-container"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if form.content.vars.attr.help is defined -%}{{ form.content.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group{% if not form.tags.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-6">
+                            {{- form_widget(form.tags) -}}
+                            {{- form_errors(form.tags) -}}
+                            <span class="help-block help-block-error errors-container"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if form.tags.vars.attr.help is defined -%}{{ form.tags.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="img form-group{% if not form.picture.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-6">
+                            {% for child in form.picture  %}
+                            {{- form_widget(child) -}}
+                            <span class="help-block help-block-error errors-container">{{- form_errors(child) -}}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if form.picture.vars.attr.help is defined -%}{{ form.picture.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group{% if not form.publishedAt.vars.valid %} has-error{% endif %}">
+                        <div class="col-md-6">
+                            {{- form_widget(form.publishedAt) -}}
+                            {{- form_errors(form.publishedAt) -}}
+                            <span class="help-block help-block-error errors-container"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="help-block" style="margin-top: 7px;">
+                                {%- if form.publishedAt.vars.attr.help is defined -%}{{ form.publishedAt.vars.attr.help }}{%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-2">
+                                <input class="btn green" type="submit" value="提交" />
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

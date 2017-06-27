@@ -13,7 +13,7 @@ namespace Dm\Bundle\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Dm\Bundle\AdminBundle\Entity\Picture;
+use Dm\Bundle\AttachmentBundle\Entity\Picture;
 
 /**
  * User
@@ -98,7 +98,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var Picture
      * 
-     * @ORM\ManyToOne(targetEntity="\Dm\Bundle\AdminBundle\Entity\Picture", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="\Dm\Bundle\AttachmentBundle\Entity\Picture", cascade={"all"})
      * @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
      */
     private $avatar;
@@ -301,7 +301,7 @@ class User implements UserInterface, \Serializable
     /**
      * Set avatar
      *
-     * @param \Dm\Bundle\AdminBundle\Entity\Picture
+     * @param \Dm\Bundle\AttachmentBundle\Entity\Picture
      * @return User
      */
     public function setAvatar(Picture $avatar)
@@ -314,7 +314,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get avatar
      *
-     * @return \Dm\Bundle\AdminBundle\Entity\Picture
+     * @return \Dm\Bundle\AttachmentBundle\Entity\Picture
      */
     public function getAvatar()
     {

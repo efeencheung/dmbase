@@ -36,6 +36,9 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - 'DmAdminBundle::form_metronic_layout.html.twig'
+        - 'DmAttachmentBundle::form_attachment.html.twig'
+    globals:
+        site_name: "DM管理平台"
 
 # Assetic Configuration
 assetic:
@@ -96,6 +99,7 @@ stof_doctrine_extensions:
     orm:
         default:
             tree: true
+            timestampable: true
 
 knp_menu:
     twig:
@@ -114,3 +118,11 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [29, 29], mode: outbound }
+        admin_list:
+            quality: 75
+            filters:
+                thumbnail: { size: [64, 36], mode: outbound }
+        picture_list:
+            quality: 75
+            filters:
+                thumbnail: { size: [150, 150], mode: outbound }

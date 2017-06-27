@@ -1,3 +1,18 @@
+dm_content:
+    resource: "@DmContentBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+dm_attachment:
+    resource: "@DmAttachmentBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+dm_carousel:
+    resource: "@DmCarouselBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 dm_security:
     resource: "@DmSecurityBundle/Controller/"
     type:     annotation

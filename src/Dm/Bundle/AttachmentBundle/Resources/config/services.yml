@@ -1,0 +1,16 @@
+services:
+    dm_attachment.configure_menu_listener:
+        class: Dm\Bundle\AttachmentBundle\EventListener\ConfigureMenuListener
+        arguments: ["@security.authorization_checker"]
+        tags:
+          - { name: kernel.event_listener, event: dm_admin.menu_configure, method: onMenuConfigure }
+
+    dm_attachment.doctrine_upload_listener:
+        class: Dm\Bundle\AttachmentBundle\EventListener\UploadListener
+        arguments: 
+            - '%kernel.root_dir%/../web'
+            - "@filesystem"
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: preRemove }
